@@ -1,0 +1,59 @@
+type Theme
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: private, operations: [read, update] }
+    ]
+  ){
+    id: ID!
+    name: String
+    owner: String
+    topics: [Topic] @connection(keyName: "listTopicsByThemeId", fields: ["id"])
+    createdAt: AWSDateTime
+    updatedAt: AWSDateTime
+  }
+
+type Topic
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: private, operations: [read, update] }
+    ]
+  )@key(
+    name: "listTopicsByThemeId",
+    fields: ["themeId"],
+    queryField: "listTopicsByThemeId"
+  ){
+    id: ID!
+    themeId: ID!
+    name: String
+    owner: String
+    likes: Int!
+    comments: [Comment] @connection(keyName: "listCommentsByTopicId", fields: ["id"])
+    createdAt: AWSDateTime
+    updatedAt: AWSDateTime
+  }
+
+type Comment
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: private, operations: [read, update] }
+    ]
+  )
+  @key(
+    name: "listCommentsByTopicId",
+    fields: ["topicId"],
+    queryField: "listCommentsByTopicId"
+  ){
+    id: ID!
+    topicId: ID!
+    name: String
+    owner: String
+    likes: Int!
+    createdAt: AWSDateTime
+    updatedAt: AWSDateTime
+  }
