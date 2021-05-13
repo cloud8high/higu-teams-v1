@@ -3,7 +3,6 @@
     <v-row justify="center">
       <v-col cols="auto">
         <!-- ログインしていない時 -->
-        <!-- <div v-if="authState !== 'signedin'">サインインしてください</div> -->
         <amplify-authenticator>
           <amplify-sign-up
             slot="sign-up"
@@ -35,9 +34,9 @@ I18n.setLanguage('ja-JP');
 export default {
   data: function() {
     return {
-      user: 'undefined',
-      authState: 'undefined',
-      unsubscribeAuth: 'undefined',
+      user: undefined,
+      authState: undefined,
+      unsubscribeAuth: undefined,
       formFields: [
         {
           type: 'username',
@@ -68,7 +67,7 @@ export default {
     Hub.listen('auth', this.changeState)
   },
   beforeDestroy: function() {
-    this.unsubscribeAuth
+    this.unsubscribeAuth()
     Hub.remove('auth', this.changeState)
   },
   methods: {
