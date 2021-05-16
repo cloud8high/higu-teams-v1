@@ -24,9 +24,7 @@ import { Auth, Hub } from 'aws-amplify'
 import { SET_USER } from '@/store/mutation-types'
 import { I18n } from "aws-amplify"
 import { Translations, onAuthUIStateChange } from "@aws-amplify/ui-components"
-import { authMessagesJa } from '@/assets/auth-messages-ja'
 const ja = require("@aws-amplify-jp/vocabulary-ja")
-I18n.putVocabularies(authMessagesJa)
 I18n.putVocabulariesForLanguage("ja-JP", ja(Translations));
 I18n.setLanguage('ja-JP');
 
